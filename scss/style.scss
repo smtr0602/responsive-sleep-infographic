@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&family=Roboto&display=swap');
+@import './utils';
+@import './layout';
+
+$COLOR_DAY: #f7edd2;
+$COLOR_DAY_CARD: #f5e6bd;
+$COLOR_NIGHT: #102a43;
+$COLOR_NIGHT_CARD: #4d5b98;
+
+body {
+  background: linear-gradient(to right, $COLOR_DAY, $COLOR_NIGHT);
+  @include for-large-screen {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+main {
+  @include for-large-screen {
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.3);
+    display: flex;
+    height: 95vh;
+    margin-top: 2%;
+    max-height: 815px;
+    max-width: 1250px;
+    overflow: scroll;
+    width: 90%;
+  }
+}
+
+.tips-block {
+  overflow-x: hidden;
+  padding: 1.5em;
+  @include for-large-screen {
+    overflow-y: scroll;
+    padding: 2.5em 2em 2em;
+  }
+  h2 {
+    font-size: 2.5rem;
+    position: relative;
+    text-align: center;
+    z-index: 2;
+    &::before {
+      animation: shake ease-in-out 1s infinite alternate;
+      content: '';
+      background: no-repeat center center/cover;
+      opacity: 0.6;
+      position: absolute;
+      z-index: -1;
+    }
+  }
+  .lead {
+    line-height: 1.2;
+    margin-top: 2em;
+  }
+  .items {
+    margin-top: 2.4em;
+  }
+  .item-card {
+    border-radius: 0.8em;
+    padding: 1em 1em;
+    position: relative;
+    & + .item-card {
+      margin-top: 1.5em;
+    }
+    dt {
+      font-weight: bold;
+    }
+    dd {
+      margin-top: 0.6em;
+      line-height: 1.3;
+    }
+    &::before {
+      background: no-repeat center center/70%;
+      background-color: #fff;
+      border-radius: 50%;
+      content: '';
+      height: 60px;
+      position: absolute;
+      top: 50%;
+      width: 60px;
+    }
+  }
+  $item-keys: schedule, pen, bed, alcohol, exercise, bed-time, wind-down,
+    no-light, sleep-zone, no-phone;
+  @each $key in $item-keys {
+    .#{$key}::before {
+      background-image: url(../imgs/#{$key}.png);
+    }
+  }
+  &.day {
+    background-color: $COLOR_DAY;
+    padding-right: 3em;
+    @include for-large-screen {
+      background-size: 150px;
+      padding-right: 3.5em;
+    }
+    h2 {
+      &::before {
+        background-image: url(../imgs/sun.png);
+        left: -30px;
+        height: 120px;
+        top: -40px;
+        width: 120px;
+      }
+    }
+    .item-card {
+      background: $COLOR_DAY_CARD;
+      padding-right: 3em;
+      &::before {
+        right: 0;
+        transform: translate(25px, -50%);
+      }
+    }
+  }
+  &.night {
+    background-color: $COLOR_NIGHT;
+    color: #fff;
+    padding-left: 3em;
+    @include for-large-screen {
+      padding-left: 3.5em;
+    }
+    h2 {
+      &::before {
+        background-image: url(../imgs/moon.png);
+        right: -30px;
+        height: 100px;
+        top: -30px;
+        width: 100px;
+      }
+    }
+    .item-card {
+      background: $COLOR_NIGHT_CARD;
+      padding-left: 3em;
+      &::before {
+        left: 0;
+        transform: translate(-25px, -50%);
+      }
+    }
+  }
+}
+footer {
+  padding: 1em;
+  a {
+    color: #fff;
+  }
+}
+
+@keyframes shake {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(15deg);
+  }
+}
